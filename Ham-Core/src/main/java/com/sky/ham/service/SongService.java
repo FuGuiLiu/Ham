@@ -1,5 +1,6 @@
 package com.sky.ham.service;
 
+import com.sky.ham.entity.Album;
 import com.sky.ham.entity.Song;
 import org.apache.ibatis.annotations.Param;
 
@@ -58,4 +59,13 @@ public interface SongService {
      * @return
      */
     Integer updateSong(Song song);
+
+    /**
+     * 查询歌曲信息根据媒体类型
+     *
+     * @param AID
+     * @return
+     */
+    List<Song> querySongInfosByAID(Integer AID);
+
 }

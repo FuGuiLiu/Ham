@@ -9,5 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value = "/portals")
 public class PortalController {
-
+    @RequestMapping(value = "/player")
+    public String player() {
+        return "/player";
+    }
 }

@@ -1,5 +1,6 @@
 package com.sky.ham.dao;
 
+import com.sky.ham.entity.Album;
 import com.sky.ham.entity.Songer;
 import org.apache.ibatis.annotations.Param;
 
@@ -73,4 +74,5 @@ public interface SongerMapper {
      * @return
      */
     Songer querySingerInfoBySID(@Param("paramSID") Integer sID);
+
 }

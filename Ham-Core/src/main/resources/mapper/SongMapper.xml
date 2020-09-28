@@ -67,12 +67,12 @@
     <select id="querySongInfos" resultMap="BaseResultMap">
         select *
         from (
-                     select *,
-                            (select sg.SRNAME from songer as sg where sg.SRID in (s.SRID)) as SRNAME,
-                            (select a.ANAME from album as a where a.AID in (s.AID))        as ANAME,
-                            (select m.TNAME from mtype as m where m.TID in (s.TID))        as TNAME
-                     from song as s
-                     ) as t
+        select *,
+        (select sg.SRNAME from songer as sg where sg.SRID in (s.SRID)) as SRNAME,
+        (select a.ANAME from album as a where a.AID in (s.AID)) as ANAME,
+        (select m.TNAME from mtype as m where m.TID in (s.TID)) as TNAME
+        from song as s
+        ) as t
         <trim prefix="where" prefixOverrides="and|or">
             <if test="paramSong.SNAME != null and paramSong.SNAME != ''">
                 t.SNAME LIKE '%${paramSong.SNAME}%'
@@ -97,12 +97,12 @@
     <select id="querySongCount" resultType="java.lang.Integer">
         select count(*)
         from (
-                     select *,
-                            (select sg.SRNAME from songer as sg where sg.SRID in (s.SRID)) as SRNAME,
-                            (select a.ANAME from album as a where a.AID in (s.AID))        as ANAME,
-                            (select m.TNAME from mtype as m where m.TID in (s.TID))        as TNAME
-                     from song as s
-                     ) as t
+        select *,
+        (select sg.SRNAME from songer as sg where sg.SRID in (s.SRID)) as SRNAME,
+        (select a.ANAME from album as a where a.AID in (s.AID)) as ANAME,
+        (select m.TNAME from mtype as m where m.TID in (s.TID)) as TNAME
+        from song as s
+        ) as t
         <trim prefix="where" prefixOverrides="and|or">
             <if test="paramSong.SNAME != null and paramSong.SNAME != ''">
                 t.SNAME LIKE '%${paramSong.SNAME}%'
@@ -123,7 +123,6 @@
     </select>
 
     <update id="updateSongInfo" parameterType="com.sky.ham.entity.Song">
-<!--        Song(SID=null, TID=20, SRID=7, AID=3, SNAME=aaaaaaaaaaaaaaaaaaa, PIC=null, MP3=/mp3/08FBB5E2A1124CD2AC6EDBA5318F0D5B.mp3, IS_HOT=0, IS_NEW=0, PTIMES=null, AUDIT_STATUS=null, SHOW_STATUS=null, LRC=aaaaaaaaaaaaaaaaaaaaaaaaaaaaa, SRNAME=null, ANAME=null, TNAME=null)-->
         update song
         set TID          = #{TID,jdbcType=INTEGER},
             SRID         = #{SRID,jdbcType=INTEGER},
@@ -144,5 +143,19 @@
         select *
         from song
         where SID = #{paramSid,jdbcType=INTEGER}
+    </select>
+
+    <select id="querySongInfosByAID" resultMap="BaseResultMap" resultType="Song">
+        select *
+        from (
+        select *,
+        (select sg.SRNAME from songer as sg where sg.SRID in (s.SRID)) as SRNAME,
+        (select a.ANAME from album as a where a.AID in (s.AID)) as ANAME,
+        (select m.TNAME from mtype as m where m.TID in (s.TID)) as TNAME
+        from song as s
+        ) as t
+        <if test="paramAID!=null">
+            where t.AID=#{paramAID,jdbcType=INTEGER}
+        </if>
     </select>
 </mapper>

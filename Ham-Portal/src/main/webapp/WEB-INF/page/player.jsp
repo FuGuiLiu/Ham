@@ -1,19 +1,17 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="header.jsp"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <head>
-<title>拓薪教育出品</title>
 <meta charset="utf-8">
 
-<link rel="stylesheet" type="text/css" href="/css/scroll.css">
-<link rel="stylesheet" type="text/css" href="/css/xiami.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/scroll.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/xiami.css">
 
-<script type="text/javascript" src="/js/common/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="/js/common/jquery-ui.js"></script>
-<script type="text/javascript" src="/js/portal/canvas.js"></script>
-<script type="text/javascript" src="/js/portal/mousewheel.js"></script>
-<script type="text/javascript" src="/js/portal/scroll.js"></script>
-<script type="text/javascript" src="/js/xiami.js"></script>
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/common/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/common/jquery-ui.js"></script>
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/portal/canvas.js"></script>
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/portal/mousewheel.js"></script>
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/portal/scroll.js"></script>
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/xiami.js"></script>
 
 </head>
 <body>
@@ -64,7 +62,7 @@
 						<a href="#" class="colA"></a>
 					</div>
 					<div class="cellectList"></div>
-					<audio id="audio"  src="/dyzdj.mp3"></audio>
+					<audio id="audio"  src="${pageContext.servletContext.contextPath}/dyzdj.mp3"></audio>
 				</div>
 				<div class="mainBody">
 					<div class="playHd">
@@ -127,7 +125,7 @@
 				<div class="mainOuther">
 					<div class="albumCover">
 						<a href="#">
-							<img src="/images/2.jpg" id="canvas1">
+							<img src="${pageContext.servletContext.contextPath}/images/2.jpg" id="canvas1">
 						</a>
 					</div>
 					<div class="albumSale">

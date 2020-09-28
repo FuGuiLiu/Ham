@@ -40,7 +40,6 @@ public class SingerController {
         model.addAttribute("singers", songers);
         model.addAttribute("currentNo", startNo);
         model.addAttribute("totalPageCount", pageCount);
-
         return "/singer";
     }
 }

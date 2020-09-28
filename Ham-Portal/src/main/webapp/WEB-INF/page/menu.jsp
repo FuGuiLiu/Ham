@@ -16,20 +16,21 @@
 
 <body>
 
-    <div class="col-lg-2">
-        <div class="list-group" id="list-tab" role="tablist">
-            <a class="list-group-item list-group-item-action" id="list-home-list"
-               href="${pageContext.servletContext.contextPath}/recommend.jsp" role="tab"
-               aria-controls="home">为您推荐</a>
-            <a class="list-group-item list-group-item-action" id="list-album-list"
-               href="${pageContext.servletContext.contextPath}/album/info.go" role="tab" aria-controls="profile">歌手专辑</a>
-            <a class="list-group-item list-group-item-action" id="list-songs-list"
-               href="${pageContext.servletContext.contextPath}/song/list.go" role="tab" aria-controls="messages">歌曲</a>
-            <a class="list-group-item list-group-item-action" id="list-singer-list"
-               href="${pageContext.servletContext.contextPath}/singer/list.go" role="tab" aria-controls="settings">歌手</a>
-        </div>
+<div class="col-lg-1">
+    <div class="list-group" id="list-tab" role="tablist">
+        <a class="list-group-item list-group-item-action" id="list-home-list"
+           href="${pageContext.servletContext.contextPath}/recommend.jsp" role="tab"
+           aria-controls="home">推荐</a>
+        <a class="list-group-item list-group-item-action" id="list-album-list"
+           href="${pageContext.servletContext.contextPath}/album/info.go" role="tab" aria-controls="profile">专辑</a>
+        <a class="list-group-item list-group-item-action" id="list-songs-list"
+           href="${pageContext.servletContext.contextPath}/song/list.go" role="tab" aria-controls="messages">歌曲</a>
+        <a class="list-group-item list-group-item-action" id="list-singer-list"
+           href="${pageContext.servletContext.contextPath}/singer/list.go" role="tab" aria-controls="settings">歌手</a>
+        <a class="list-group-item list-group-item-action" id="list-player-list"
+           href="${pageContext.servletContext.contextPath}/portals/player.go" role="tab" aria-controls="settings">播放器</a>
     </div>
-
+</div>
 
 
 </body>

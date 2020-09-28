@@ -2,18 +2,13 @@ package com.sky.ham.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.sky.ham.entity.Album;
+import com.sky.ham.entity.Song;
 import com.sky.ham.service.AlbumService;
+import com.sky.ham.service.SongService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 /**
@@ -24,6 +19,8 @@ import java.util.List;
 public class AlbumController {
     @Resource
     private AlbumService albumService;
+    @Resource
+    private SongService songService;
 
     @RequestMapping(value = "/info")
     public String albumInfo() {
@@ -36,4 +33,5 @@ public class AlbumController {
         List<Album> albums = albumService.queryAlbumInfos(album, 1, 10);
         return JSON.toJSONString(albums);
     }
+
 }

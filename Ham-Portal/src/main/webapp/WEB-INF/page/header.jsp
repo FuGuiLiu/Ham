@@ -2,6 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
+
 <head>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery-3.2.1.slim.min.js"></script>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/popper1.11.0.min.js"></script>
@@ -45,13 +46,8 @@
             </form>
         </div>
     </nav>
-<<<<<<< HEAD
-    <c:set var="localPicturesPath" value="http://localhost:9092/pictures/"></c:set>
-    <c:set var="localSongsPath" value="http://localhost:9092/songs/"></c:set>
-=======
     <c:set var="localPicturesPath" value="http://localhost:8080/pictures/"></c:set>
     <c:set var="localSongsPath" value="http://localhost:8080/songs/"></c:set>
->>>>>>> d755f9b... console
 </head>
 <body>
 

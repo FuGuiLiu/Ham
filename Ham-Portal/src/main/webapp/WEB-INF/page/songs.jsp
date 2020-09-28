@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="localPicturesPath" value="http://localhost:9092/pictures/"></c:set>
-<c:set var="localSongsPath" value="http://localhost:9092/songs/"></c:set>
+<c:set var="localPicturesPath" value="http://localhost:8080/pictures/"></c:set>
+<c:set var="localSongsPath" value="http://localhost:8080/songs/"></c:set>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -12,7 +12,6 @@
 <html>
 <head>
     <title>Title</title>
-
 </head>
 <body>
 <jsp:include page="header.jsp"/>
@@ -21,7 +20,7 @@
         <div class="row">
             <jsp:include page="/WEB-INF/page/menu.jsp"/>
 
-            <div class="col-lg-10">
+            <div class="col-lg-11">
 
                 <form id="txForm" action="${pageContext.servletContext.contextPath}/song/list.go" method="post">
                     <div class="row">
@@ -53,14 +52,16 @@
                             <th scope="col">#</th>
                             <th scope="col">歌手</th>
                             <th scope="col">专辑</th>
+                            <th scope="col">#</th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach items="${songs}" var="songs" varStatus="status">
-                            <tr <c:if test="${status.index%2==0}">style="background-color:rgba(0,123,255,0.2); " </c:if>>
-                                <td><a href="#">${songs.SID}</a></td>
+                            <tr
+                                    <c:if test="${status.index%2==0}">style="background-color:rgba(0,123,255,0.3); " </c:if>>
+                                <td>${songs.SID}</td>
                                 <td>
-                                    <a href="#">${songs.SNAME}</a>
+                                    <a href="#" style="">${songs.SNAME}</a>
                                 </td>
                                 <td>
                                     <a href="">
@@ -68,8 +69,23 @@
                                              style="width: 50px;height: 50px;">
                                     </a>
                                 </td>
-                                <td><a href="#">${songs.SRNAME}</a></td>
-                                <td><a href="#">${songs.ANAME}</a></td>
+                                <td><a href="#" style="">${songs.SRNAME}</a></td>
+                                <td><a href="#" style="">${songs.ANAME}</a></td>
+                                <td>
+                                    <a id="a_play" href="#">
+                                        <img src="${pageContext.servletContext.contextPath}/Icon/play.png"
+                                             style="width: 24px;height: 24px;" alt="">
+                                    </a>
+                                    <a id="a_add" style="margin-right: 8px;margin-left: 8px;" href="#">
+                                        <img src="${pageContext.servletContext.contextPath}/Icon/add.png"
+                                             style="width: 24px;height: 24px;" alt="">
+                                    </a>
+                                    <a id="a_love" href="#">
+                                        <img src="${pageContext.servletContext.contextPath}/Icon/love.png"
+                                             style="width: 24px;height: 24px;" alt="">
+                                    </a>
+                                </td>
+
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -136,4 +152,5 @@
 </script>
 <script>
     $("#list-songs-list").attr("class", "list-group-item list-group-item-action active");
+    $("a").css({"text-decoration":"none"});
 </script>

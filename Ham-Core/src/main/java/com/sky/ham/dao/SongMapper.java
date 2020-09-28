@@ -1,5 +1,6 @@
 package com.sky.ham.dao;
 
+import com.sky.ham.entity.Album;
 import com.sky.ham.entity.Song;
 import org.apache.ibatis.annotations.Param;
 
@@ -45,4 +46,12 @@ public interface SongMapper {
      * @return
      */
     Song querySongInfo(@Param(value = "paramSid") Integer SID);
+
+    /**
+     * 查询歌曲信息根据专辑id
+     *
+     * @param AID
+     * @return
+     */
+    List<Song> querySongInfosByAID(@Param("paramAID") Integer AID);
 }

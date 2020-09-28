@@ -1,11 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<<<<<<< HEAD
 <c:set var="localPicturesPath" value="http://localhost:9092/pictures/"></c:set>
 <c:set var="localSongsPath" value="http://localhost:9092/songs/"></c:set>
-=======
 <c:set var="localPicturesPath" value="http://localhost:8080/pictures/"></c:set>
 <c:set var="localSongsPath" value="http://localhost:8080/songs/"></c:set>
->>>>>>> d755f9b... console
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -24,7 +21,7 @@
     <div class="col-lg-12">
         <div class="row">
             <jsp:include page="/WEB-INF/page/menu.jsp"/>
-            <div class="col-lg-10">
+            <div class="col-lg-11">
                 <form id="txForm" action="/portal/singer/list.go" method="post">
                     <div class="row">
                         <div class="col-lg-9">
@@ -56,13 +53,14 @@
                             <th scope="col">地域</th>
                             <th scope="col">是否热门</th>
                             <th scope="col">歌手介绍</th>
+                            <th scope="col">#</th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach items="${singers}" var="singers" varStatus="status">
 
                             <tr
-                                    <c:if test="${status.index%2==0}">style="background-color: rgba(0,123,255,0.2);"</c:if>>
+                                    <c:if test="${status.index%2==0}">style="background-color: rgba(0,123,255,0.3);"</c:if>>
                                 <th scope="row">${status.index+1}</th>
                                 <td><a href="#">${singers.SRNAME}</a></td>
                                 <td>
@@ -74,16 +72,30 @@
                                 <td>${singers.AREA}</td>
                                 <td>${singers.IS_HOT==1?"热门歌手":"正常"}</td>
                                 <td>
-                                    <button type="button" class="btn btn-secondary" data-toggle="tooltip"
+                                    <button type="button" class="btn btn-secondary disabled" data-toggle="tooltip"
                                             data-html="true" title="${singers.INTRO}" style="width: 100px;">
                                         悬浮介绍
                                     </button>
+                                </td>
+                                <td>
+                                    <a id="a_play" href="#">
+                                        <img src="${pageContext.servletContext.contextPath}/Icon/play.png"
+                                             style="width: 24px;height: 24px;" alt="">
+                                    </a>
+                                    <a id="a_add" style="margin-right: 8px;margin-left: 8px;" href="#">
+                                        <img src="${pageContext.servletContext.contextPath}/Icon/add.png"
+                                             style="width: 24px;height: 24px;" alt="">
+                                    </a>
+                                    <a id="a_love" href="#">
+                                        <img src="${pageContext.servletContext.contextPath}/Icon/love.png"
+                                             style="width: 24px;height: 24px;" alt="">
+                                    </a>
                                 </td>
                             </tr>
                         </c:forEach>
                         </tbody>
                     </table>
-                    <jsp:include page="pagination.jsp"/>
+                    <jsp:include page="pagination.jsp" flush="true"/>
                 </form>
             </div>
         </div>
@@ -143,4 +155,5 @@
 </script>
 <script>
     $("#list-singer-list").attr("class", "list-group-item list-group-item-action active")
+    $("a").css({"text-decoration": "none"});
 </script>

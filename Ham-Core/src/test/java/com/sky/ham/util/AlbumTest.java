@@ -68,4 +68,5 @@ public class AlbumTest {
 //        Integer integer = albumService.deleteAlbumInfo(11);
 //        System.out.println(integer);
     }
+
 }

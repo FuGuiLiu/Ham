@@ -1,6 +1,7 @@
 package com.sky.ham.service.impl;
 
 import com.sky.ham.dao.SongerMapper;
+import com.sky.ham.entity.Album;
 import com.sky.ham.entity.Songer;
 import com.sky.ham.service.SingerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,4 +59,5 @@ public class SingerServiceImpl implements SingerService {
     public Songer querySingerInfoBySID(Integer sID) {
         return songerMapper.querySingerInfoBySID(sID);
     }
+
 }

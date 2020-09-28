@@ -94,13 +94,6 @@ public class SingerController {
             model.addAttribute("errors", bindingResult.getFieldErrors());
             return "/mistake";
         } else {
-<<<<<<< HEAD
-            songer.setPIC(songer.getPIC().substring(8, songer.getPIC().length()));
-
-            session.setAttribute("submitImg", songer.getPIC());
-
-=======
->>>>>>> d755f9b... console
             Integer integer = singerService.addSingerInfo(songer);
             if (integer == 1) {
                 return "redirect:/singer/list.go";
@@ -169,25 +162,12 @@ public class SingerController {
             model.addAttribute("errors", bindingResult.getFieldErrors());
             return "/mistake";
         } else {
-<<<<<<< HEAD
-            if (songer.getPIC().length() > 49) {
-                songer.setPIC(songer.getPIC().substring(8, songer.getPIC().length()));
-            }
-            Integer integer = singerService.updateSingerInfo(songer, songer.getSRID());
-
-            if (integer == 1) {
-                return "redirect:/singer/list.go";
-            } else {
-                return "redirect:/singer/list.go";
-            }
-=======
             Integer integer = singerService.updateSingerInfo(songer, songer.getSRID());
 
             if (integer == 1) {
                 return "/redirect:/singer/list.go";
             }
             return "/songer";
->>>>>>> d755f9b... console
         }
     }
 

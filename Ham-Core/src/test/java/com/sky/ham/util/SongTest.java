@@ -1,5 +1,6 @@
 package com.sky.ham.util;
 
+import com.sky.ham.entity.Album;
 import com.sky.ham.entity.Song;
 import com.sky.ham.service.AlbumService;
 import com.sky.ham.service.SongService;
@@ -38,5 +39,13 @@ public class SongTest {
 //        songs.setTID2Name("摇滚");
 //        Integer integer = songService.querySongCounts(songs);
 //        System.out.println(integer);
+    }
+
+    @Test
+    public void songsListTest() {
+        List<Song> songs = songService.querySongInfosByAID(7);
+        for (Song song : songs) {
+            System.out.println(song.getSNAME());
+        }
     }
 }

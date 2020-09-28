@@ -18,11 +18,7 @@ function Swiper(obj) {
         this.containerWidth = document.body.clientWidth; // 轮播图盒子宽度
     } else {
         // PC端
-<<<<<<< HEAD
-        this.containerWidth = 1200; // 轮播图盒子宽度
-=======
-        this.containerWidth = 1250; // 轮播图盒子宽度
->>>>>>> d755f9b... console
+        this.containerWidth = 1320; // 轮播图盒子宽度
     }
     this.imgWidth = obj.imgWidth; // 图片宽度
     this.aniTime = obj.aniTime || 500;
@@ -56,15 +52,6 @@ Swiper.prototype = {
             this.nowIndex = 0;
             resImgArr = [...this.imgArr];
         }
-<<<<<<< HEAD
-        let src = '';
-        resImgArr.forEach((item, index) => {
-            src += `<a href="${resImgArr[index].url}">
-<img class="swiper-slide${this.clsSuffix}" style="width: ${this.imgWidth}px;" src="${resImgArr[index].imgPath}" />
-</a>
-`;
-        });
-=======
         let src = '<div style="width: 300px;height: 300px;">';
         resImgArr.forEach((item, index) => {
 //             src += `<a href="${resImgArr[index].url}">
@@ -82,7 +69,7 @@ Swiper.prototype = {
 <p href="#" style="position: absolute;margin-top: 250px;margin-left: 20px;font: normal normal 20px 微软雅黑;color: black;">${resImgArr[index].lang}</p>
 </div>
 <div>
-<a href="#" style="position: absolute;margin-top: 295px;margin-left: 20px;font: normal normal 20px 微软雅黑;color: #007BFF;">${resImgArr[index].aname}
+<a href="/portal/song/songsLists.go?AID=${resImgArr[index].id}" style="position: absolute;margin-top: 295px;margin-left: 20px;font: normal normal 20px 微软雅黑;color: #007BFF;text-decoration: none;">${resImgArr[index].aname}
 </a>
 </div>
 
@@ -100,7 +87,6 @@ Swiper.prototype = {
             //     </div>
         });
         src = src + `</div>`;
->>>>>>> d755f9b... console
         this.mainDom.innerHTML = src;
         this.setScale();
         if (this.autoplay) {

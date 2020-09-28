@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2020/9/24
-  Time: 21:04
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -18,7 +11,7 @@
     <div class="col-lg-12">
         <div class="row">
             <jsp:include page="/WEB-INF/page/menu.jsp"/>
-            <div class="col-lg-10">
+            <div class="col-lg-11">
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="list-home" role="tabpanel"
                          aria-labelledby="list-home-list">

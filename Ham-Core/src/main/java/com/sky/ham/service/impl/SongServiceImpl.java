@@ -2,6 +2,7 @@ package com.sky.ham.service.impl;
 
 import com.sky.ham.dao.SongMapper;
 import com.sky.ham.dao.SongerMapper;
+import com.sky.ham.entity.Album;
 import com.sky.ham.entity.Song;
 import com.sky.ham.service.SongService;
 import org.springframework.stereotype.Service;
@@ -48,5 +49,10 @@ public class SongServiceImpl implements SongService {
     @Override
     public Song querySongInfo(Integer SID) {
         return songMapper.querySongInfo(SID);
+    }
+
+    @Override
+    public List<Song> querySongInfosByAID(Integer AID) {
+        return songMapper.querySongInfosByAID(AID);
     }
 }

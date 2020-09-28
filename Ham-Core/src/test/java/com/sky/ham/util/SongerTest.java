@@ -1,5 +1,6 @@
 package com.sky.ham.util;
 
+import com.sky.ham.entity.Album;
 import com.sky.ham.entity.Song;
 import com.sky.ham.entity.Songer;
 import com.sky.ham.service.SingerService;
@@ -52,4 +53,6 @@ public class SongerTest {
     public void deleteSonger() {
 //        System.out.println(singerService.deleteSingerInfo(14));
     }
+
+
 }

@@ -1,5 +1,6 @@
 package com.sky.ham.service;
 
+import com.sky.ham.entity.Album;
 import com.sky.ham.entity.Song;
 import com.sky.ham.entity.Songer;
 
@@ -74,4 +75,5 @@ public interface SingerService {
      * @return
      */
     Songer querySingerInfoBySID(Integer sID);
+
 }
