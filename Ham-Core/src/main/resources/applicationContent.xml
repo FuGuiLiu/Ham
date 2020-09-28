@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx1="http://www.springframework.org/schema/cache"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.3.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+    http://www.springframework.org/schema/cache
+    http://www.springframework.org/schema/cache/spring-cache.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!--    配置自动代理-->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!--    加载数据库文件-->
+    <bean id="placeholderConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:druid.properties"/>
+    </bean>
+    <!--    配置数据源,以dbcp数据源作为连接池-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${driverClassName}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+    </bean>
+    <!--    配置session会话工厂-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="mapperLocations">
+            <list>
+                <value>classpath:mapper/*.xml</value>
+            </list>
+        </property>
+    </bean>
+    <!--    配置映射文件扫描器-->
+    <bean id="scannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="com.sky.ham.dao"/>
+    </bean>
+    <!--    事务管理-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--    开启事物支持-->
+    <tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>
+
+    <!--    Spring中常用事务类型：-->
+    <!--REQUIRED支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。
+    SUPPORTS支持当前事务，如果当前没有事务，就以非事务方式执行。
+    MANDATORY支持当前事务，如果当前没有事务，就抛出异常。
+    REQUIRES NEW新建事务，如果当前存在事务，把当前事务挂起。
+    NOT SUPPORTED以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。
+    NEVER以非事务方式执行，如果当前存在事务，则抛出异常。-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="query*" isolation="DEFAULT" read-only="true" propagation="SUPPORTS"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--    将通知应用到切入点-->
+    <aop:config proxy-target-class="true">
+        <aop:pointcut id="transPointCut" expression="execution(* com.sky.ham.service.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="transPointCut"/>
+    </aop:config>
+    <!--    开启组件扫描,配置配置自动扫描要注入的bean对象-->
+    <context:component-scan base-package="com.sky.ham"/>
+
+</beans>

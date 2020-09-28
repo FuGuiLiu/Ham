@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sky.ham.dao.MTypeMapper">
+    <resultMap id="BaseResultMap" type="com.sky.ham.entity.MType">
+        <id column="TID" jdbcType="INTEGER" property="TID"/>
+        <result column="TNAME" jdbcType="VARCHAR" property="TNAME"/>
+        <result column="TDESC" jdbcType="VARCHAR" property="TDESC"/>
+    </resultMap>
+
+    <insert id="newMTypeInsert" parameterType="com.sky.ham.entity.MType">
+        insert into mtype
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="paramRecord.TID != null">
+                TID,
+            </if>
+            <if test="paramRecord.TNAME != null">
+                TNAME,
+            </if>
+            <if test="paramRecord.TDESC != null">
+                TDESC,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="paramRecord.TID != null">
+                #{paramRecord.TID,jdbcType=INTEGER},
+            </if>
+            <if test="paramRecord.TNAME != null">
+                #{paramRecord.TNAME,jdbcType=VARCHAR},
+            </if>
+            <if test="paramRecord.TDESC != null">
+                #{paramRecord.TDESC,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="byPrimaryUpdate" parameterType="int">
+        update mtype as m
+        <set>
+            <if test="paramMType.TNAME != null and paramMType.TNAME!=''">
+                m.TNAME = #{paramMType.TNAME,jdbcType=VARCHAR},
+            </if>
+            <if test="paramMType.TDESC != null and paramMType.TDESC!=''">
+                m.TDESC = #{paramMType.TDESC,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where m.TID = #{paramTID,jdbcType=INTEGER}
+    </update>
+
+    <!--  查询类型并且分页展示-->
+    <select id="mTypesQueryAndPagination" resultType="com.sky.ham.entity.MType">
+        select * from mtype as m
+        <where>
+            <if test="paramTName!=null and paramTName!=''">
+                m.TNAME like concat('%',#{paramTName},'%')
+            </if>
+        </where>
+        limit #{paramStartNo},#{paramPageSize}
+    </select>
+
+    <select id="mTypesCountQuery" resultType="int">
+        select count(1) from mtype as m
+        <where>
+            <if test="paramTName!=null and paramTName!=''">
+                m.TNAME like concat('%',#{paramTName},'%')
+            </if>
+        </where>
+    </select>
+
+    <delete id="MTypeDeleteById">
+        <if test="paramTID!=null and paramTID!=''">
+            delete from mtype
+            where TID=#{paramTID,jdbcType=INTEGER}
+        </if>
+    </delete>
+
+    <select id="mTypeByIdQuery" resultMap="BaseResultMap">
+        select * from mtype as m
+        <where>
+            <if test="paramTID!=null">
+                m.TID=#{paramTID,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryMTypeInfo" resultMap="BaseResultMap">
+        select * from mtype
+    </select>
+</mapper>

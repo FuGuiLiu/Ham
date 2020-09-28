@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sky.ham.dao.SongMapper">
+    <resultMap id="BaseResultMap" type="com.sky.ham.entity.Song">
+        <id column="SID" jdbcType="INTEGER" property="SID"/>
+        <result column="TID" jdbcType="INTEGER" property="TID"/>
+        <result column="SRID" jdbcType="INTEGER" property="SRID"/>
+        <result column="AID" jdbcType="INTEGER" property="AID"/>
+        <result column="SNAME" jdbcType="VARCHAR" property="SNAME"/>
+        <result column="PIC" jdbcType="VARCHAR" property="PIC"/>
+        <result column="MP3" jdbcType="VARCHAR" property="MP3"/>
+        <result column="IS_HOT" jdbcType="INTEGER" property="IS_HOT"/>
+        <result column="IS_NEW" jdbcType="INTEGER" property="IS_NEW"/>
+        <result column="PTIMES" jdbcType="INTEGER" property="PTIMES"/>
+        <result column="AUDIT_STATUS" jdbcType="INTEGER" property="AUDIT_STATUS"/>
+        <result column="SHOW_STATUS" jdbcType="INTEGER" property="SHOW_STATUS"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.sky.ham.entity.Song">
+        <result column="LRC" jdbcType="LONGVARCHAR" property="LRC"/>
+    </resultMap>
+    <resultMap id="FullResultMap" type="com.sky.ham.entity.Song" extends="BaseResultMap">
+        <association property="SRNAME" javaType="Songer" resultMap="com.sky.ham.dao.SongerMapper.BaseResultMap"/>
+        <association property="TNAME" javaType="MType" resultMap="com.sky.ham.dao.MTypeMapper.BaseResultMap"/>
+        <association property="ANAME" javaType="Album" resultMap="com.sky.ham.dao.AlbumMapper.BaseResultMap"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        SID,
+        TID,
+        SRID,
+        AID,
+        SNAME,
+        PIC,
+        MP3,
+        IS_HOT,
+        IS_NEW,
+        PTIMES,
+        AUDIT_STATUS,
+        SHOW_STATUS
+    </sql>
+    <sql id="Blob_Column_List">
+        LRC
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from song
+        where SID = #{SID,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from song
+        where SID = #{SID,jdbcType=INTEGER}
+    </delete>
+    <insert id="addSong" parameterType="com.sky.ham.entity.Song">
+        insert into song (SID, TID, SRID,
+                          AID, SNAME, PIC, MP3,
+                          IS_HOT, IS_NEW, PTIMES,
+                          AUDIT_STATUS, SHOW_STATUS, LRC)
+        values (#{SID,jdbcType=INTEGER}, #{TID,jdbcType=INTEGER}, #{SRID,jdbcType=INTEGER},
+                #{AID,jdbcType=INTEGER}, #{SNAME,jdbcType=VARCHAR}, #{PIC,jdbcType=VARCHAR}, #{MP3,jdbcType=VARCHAR},
+                #{IS_HOT,jdbcType=INTEGER}, #{IS_NEW,jdbcType=INTEGER}, #{PTIMES,jdbcType=INTEGER},
+                #{AUDIT_STATUS,jdbcType=INTEGER}, #{SHOW_STATUS,jdbcType=INTEGER}, #{LRC,jdbcType=LONGVARCHAR})
+    </insert>
+
+    <select id="querySongInfos" resultMap="BaseResultMap">
+        select *
+        from (
+                     select *,
+                            (select sg.SRNAME from songer as sg where sg.SRID in (s.SRID)) as SRNAME,
+                            (select a.ANAME from album as a where a.AID in (s.AID))        as ANAME,
+                            (select m.TNAME from mtype as m where m.TID in (s.TID))        as TNAME
+                     from song as s
+                     ) as t
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="paramSong.SNAME != null and paramSong.SNAME != ''">
+                t.SNAME LIKE '%${paramSong.SNAME}%'
+            </if>
+            <if test="paramSong.SRNAME != null and paramSong.SRNAME != ''">
+                or t.SRNAME LIKE '%${paramSong.SRNAME}%'
+            </if>
+            <if test="paramSong.ANAME != null and paramSong.ANAME != ''">
+                or t.ANAME LIKE '%${paramSong.ANAME}%'
+            </if>
+            <if test="paramSong.TNAME != null">
+                or t.TNAME = #{paramSong.TNAME}
+            </if>
+            <if test="paramSong.TID != null">
+                or t.TID = #{paramSong.TID}
+            </if>
+        </trim>
+
+        LIMIT #{paramStartNo,jdbcType=INTEGER}, #{paramPageSize,jdbcType=INTEGER}
+    </select>
+
+    <select id="querySongCount" resultType="java.lang.Integer">
+        select count(*)
+        from (
+                     select *,
+                            (select sg.SRNAME from songer as sg where sg.SRID in (s.SRID)) as SRNAME,
+                            (select a.ANAME from album as a where a.AID in (s.AID))        as ANAME,
+                            (select m.TNAME from mtype as m where m.TID in (s.TID))        as TNAME
+                     from song as s
+                     ) as t
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="paramSong.SNAME != null and paramSong.SNAME != ''">
+                t.SNAME LIKE '%${paramSong.SNAME}%'
+            </if>
+            <if test="paramSong.SRNAME != null and paramSong.SRNAME != ''">
+                or t.SRNAME LIKE '%${paramSong.SRNAME}%'
+            </if>
+            <if test="paramSong.ANAME != null and paramSong.ANAME != ''">
+                or t.ANAME LIKE '%${paramSong.ANAME}%'
+            </if>
+            <if test="paramSong.TNAME != null">
+                or t.TNAME = #{paramSong.TNAME,jdbcType=VARCHAR}
+            </if>
+            <if test="paramSong.TID != null">
+                or t.TID = #{paramSong.TID}
+            </if>
+        </trim>
+    </select>
+
+    <update id="updateSongInfo" parameterType="com.sky.ham.entity.Song">
+<!--        Song(SID=null, TID=20, SRID=7, AID=3, SNAME=aaaaaaaaaaaaaaaaaaa, PIC=null, MP3=/mp3/08FBB5E2A1124CD2AC6EDBA5318F0D5B.mp3, IS_HOT=0, IS_NEW=0, PTIMES=null, AUDIT_STATUS=null, SHOW_STATUS=null, LRC=aaaaaaaaaaaaaaaaaaaaaaaaaaaaa, SRNAME=null, ANAME=null, TNAME=null)-->
+        update song
+        set TID          = #{TID,jdbcType=INTEGER},
+            SRID         = #{SRID,jdbcType=INTEGER},
+            AID          = #{AID,jdbcType=INTEGER},
+            SNAME        = #{SNAME,jdbcType=VARCHAR},
+            PIC          = #{PIC,jdbcType=VARCHAR},
+            MP3          = #{MP3,jdbcType=VARCHAR},
+            IS_HOT       = #{IS_HOT,jdbcType=INTEGER},
+            IS_NEW       = #{IS_NEW,jdbcType=INTEGER},
+            PTIMES       = #{PTIMES,jdbcType=INTEGER},
+            AUDIT_STATUS = #{AUDIT_STATUS,jdbcType=INTEGER},
+            SHOW_STATUS  = #{SHOW_STATUS,jdbcType=INTEGER},
+            LRC          = #{LRC,jdbcType=LONGVARCHAR}
+        where SID = #{SID,jdbcType=INTEGER}
+    </update>
+
+    <select id="querySongInfo" resultMap="BaseResultMap">
+        select *
+        from song
+        where SID = #{paramSid,jdbcType=INTEGER}
+    </select>
+</mapper>

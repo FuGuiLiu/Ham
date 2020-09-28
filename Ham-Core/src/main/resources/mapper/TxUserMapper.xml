@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sky.ham.dao.TxUserMapper">
+    <resultMap id="BaseResultMap" type="com.sky.ham.entity.TxUser">
+        <id column="USER_ID" jdbcType="INTEGER" property="USER_ID"/>
+        <result column="USERNAME" jdbcType="VARCHAR" property="USERNAME"/>
+        <result column="PASSWORD" jdbcType="VARCHAR" property="PASSWORD"/>
+        <result column="QQ" jdbcType="VARCHAR" property="QQ"/>
+        <result column="EMAIL" jdbcType="VARCHAR" property="EMAIL"/>
+        <result column="NICK" jdbcType="VARCHAR" property="NICK"/>
+        <result column="TEL" jdbcType="VARCHAR" property="TEL"/>
+        <result column="REG_TIME" jdbcType="DATE" property="REG_TIME"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        USER_ID,
+        USERNAME,
+        PASSWORD,
+        QQ,
+        EMAIL,
+        NICK,
+        TEL,
+        REG_TIME
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tx_user
+        where USER_ID = #{USER_ID,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from tx_user
+        where USER_ID = #{USER_ID,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.sky.ham.entity.TxUser">
+        insert into tx_user (USER_ID, USERNAME, PASSWORD,
+                             QQ, EMAIL, NICK, TEL,
+                             REG_TIME)
+        values (#{USER_ID,jdbcType=INTEGER}, #{USERNAME,jdbcType=VARCHAR}, #{PASSWORD,jdbcType=VARCHAR},
+                #{QQ,jdbcType=VARCHAR}, #{EMAIL,jdbcType=VARCHAR}, #{NICK,jdbcType=VARCHAR}, #{TEL,jdbcType=VARCHAR},
+                #{REG_TIME,jdbcType=DATE})
+    </insert>
+    <insert id="insertSelective" parameterType="com.sky.ham.entity.TxUser">
+        insert into tx_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="USER_ID != null">
+                USER_ID,
+            </if>
+            <if test="USERNAME != null">
+                USERNAME,
+            </if>
+            <if test="PASSWORD != null">
+                PASSWORD,
+            </if>
+            <if test="QQ != null">
+                QQ,
+            </if>
+            <if test="EMAIL != null">
+                EMAIL,
+            </if>
+            <if test="NICK != null">
+                NICK,
+            </if>
+            <if test="TEL != null">
+                TEL,
+            </if>
+            <if test="REG_TIME != null">
+                REG_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="USER_ID != null">
+                #{USER_ID,jdbcType=INTEGER},
+            </if>
+            <if test="USERNAME != null">
+                #{USERNAME,jdbcType=VARCHAR},
+            </if>
+            <if test="PASSWORD != null">
+                #{PASSWORD,jdbcType=VARCHAR},
+            </if>
+            <if test="QQ != null">
+                #{QQ,jdbcType=VARCHAR},
+            </if>
+            <if test="EMAIL != null">
+                #{EMAIL,jdbcType=VARCHAR},
+            </if>
+            <if test="NICK != null">
+                #{NICK,jdbcType=VARCHAR},
+            </if>
+            <if test="TEL != null">
+                #{TEL,jdbcType=VARCHAR},
+            </if>
+            <if test="REG_TIME != null">
+                #{REG_TIME,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.sky.ham.entity.TxUser">
+        update tx_user
+        <set>
+            <if test="USERNAME != null">
+                USERNAME = #{USERNAME,jdbcType=VARCHAR},
+            </if>
+            <if test="PASSWORD != null">
+                PASSWORD = #{PASSWORD,jdbcType=VARCHAR},
+            </if>
+            <if test="QQ != null">
+                QQ = #{QQ,jdbcType=VARCHAR},
+            </if>
+            <if test="EMAIL != null">
+                EMAIL = #{EMAIL,jdbcType=VARCHAR},
+            </if>
+            <if test="NICK != null">
+                NICK = #{NICK,jdbcType=VARCHAR},
+            </if>
+            <if test="TEL != null">
+                TEL = #{TEL,jdbcType=VARCHAR},
+            </if>
+            <if test="REG_TIME != null">
+                REG_TIME = #{REG_TIME,jdbcType=DATE},
+            </if>
+        </set>
+        where USER_ID = #{USER_ID,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.sky.ham.entity.TxUser">
+        update tx_user
+        set USERNAME = #{USERNAME,jdbcType=VARCHAR},
+            PASSWORD = #{PASSWORD,jdbcType=VARCHAR},
+            QQ       = #{QQ,jdbcType=VARCHAR},
+            EMAIL    = #{EMAIL,jdbcType=VARCHAR},
+            NICK     = #{NICK,jdbcType=VARCHAR},
+            TEL      = #{TEL,jdbcType=VARCHAR},
+            REG_TIME = #{REG_TIME,jdbcType=DATE}
+        where USER_ID = #{USER_ID,jdbcType=INTEGER}
+    </update>
+
+    <select id="queryLogin" resultType="com.sky.ham.entity.TxUser">
+        select *
+        from tx_user as t
+        <where>
+            t.EMAIL = #{txUser.EMAIL,jdbcType=VARCHAR}
+                    and t.PASSWORD = #{txUser.PASSWORD,jdbcType=VARCHAR}
+        </where>
+    </select>
+</mapper>

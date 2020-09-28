@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sky.ham.dao.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.sky.ham.entity.Comment">
+    <id column="COMMENT_ID" jdbcType="INTEGER" property="COMMENT_ID" />
+    <result column="COM_COMMENT_ID" jdbcType="INTEGER" property="COM_COMMENT_ID" />
+    <result column="USER_ID" jdbcType="INTEGER" property="USER_ID" />
+    <result column="Z_COUNT" jdbcType="INTEGER" property="z_COUNT" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.sky.ham.entity.Comment">
+    <result column="COMMENT_CONTENT" jdbcType="LONGVARCHAR" property="COMMENT_CONTENT" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    COMMENT_ID, COM_COMMENT_ID, USER_ID, Z_COUNT
+  </sql>
+  <sql id="Blob_Column_List">
+    COMMENT_CONTENT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from comment
+    where COMMENT_ID = #{COMMENT_ID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from comment
+    where COMMENT_ID = #{COMMENT_ID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sky.ham.entity.Comment">
+    insert into comment (COMMENT_ID, COM_COMMENT_ID, USER_ID, 
+      Z_COUNT, COMMENT_CONTENT)
+    values (#{COMMENT_ID,jdbcType=INTEGER}, #{COM_COMMENT_ID,jdbcType=INTEGER}, #{USER_ID,jdbcType=INTEGER}, 
+      #{z_COUNT,jdbcType=INTEGER}, #{COMMENT_CONTENT,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sky.ham.entity.Comment">
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="COMMENT_ID != null">
+        COMMENT_ID,
+      </if>
+      <if test="COM_COMMENT_ID != null">
+        COM_COMMENT_ID,
+      </if>
+      <if test="USER_ID != null">
+        USER_ID,
+      </if>
+      <if test="z_COUNT != null">
+        Z_COUNT,
+      </if>
+      <if test="COMMENT_CONTENT != null">
+        COMMENT_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="COMMENT_ID != null">
+        #{COMMENT_ID,jdbcType=INTEGER},
+      </if>
+      <if test="COM_COMMENT_ID != null">
+        #{COM_COMMENT_ID,jdbcType=INTEGER},
+      </if>
+      <if test="USER_ID != null">
+        #{USER_ID,jdbcType=INTEGER},
+      </if>
+      <if test="z_COUNT != null">
+        #{z_COUNT,jdbcType=INTEGER},
+      </if>
+      <if test="COMMENT_CONTENT != null">
+        #{COMMENT_CONTENT,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sky.ham.entity.Comment">
+    update comment
+    <set>
+      <if test="COM_COMMENT_ID != null">
+        COM_COMMENT_ID = #{COM_COMMENT_ID,jdbcType=INTEGER},
+      </if>
+      <if test="USER_ID != null">
+        USER_ID = #{USER_ID,jdbcType=INTEGER},
+      </if>
+      <if test="z_COUNT != null">
+        Z_COUNT = #{z_COUNT,jdbcType=INTEGER},
+      </if>
+      <if test="COMMENT_CONTENT != null">
+        COMMENT_CONTENT = #{COMMENT_CONTENT,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where COMMENT_ID = #{COMMENT_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sky.ham.entity.Comment">
+    update comment
+    set COM_COMMENT_ID = #{COM_COMMENT_ID,jdbcType=INTEGER},
+      USER_ID = #{USER_ID,jdbcType=INTEGER},
+      Z_COUNT = #{z_COUNT,jdbcType=INTEGER},
+      COMMENT_CONTENT = #{COMMENT_CONTENT,jdbcType=LONGVARCHAR}
+    where COMMENT_ID = #{COMMENT_ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sky.ham.entity.Comment">
+    update comment
+    set COM_COMMENT_ID = #{COM_COMMENT_ID,jdbcType=INTEGER},
+      USER_ID = #{USER_ID,jdbcType=INTEGER},
+      Z_COUNT = #{z_COUNT,jdbcType=INTEGER}
+    where COMMENT_ID = #{COMMENT_ID,jdbcType=INTEGER}
+  </update>
+</mapper>

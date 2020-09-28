@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sky.ham.dao.AlbumMapper">
+    <resultMap id="BaseResultMap" type="com.sky.ham.entity.Album">
+        <id column="AID" jdbcType="INTEGER" property="AID"/>
+        <result column="ANAME" jdbcType="VARCHAR" property="ANAME"/>
+        <result column="PIC" jdbcType="VARCHAR" property="PIC"/>
+        <result column="COMPANY" jdbcType="VARCHAR" property="COMPANY"/>
+        <result column="PDATE" jdbcType="DATE" property="PDATE"/>
+        <result column="LANG" jdbcType="VARCHAR" property="LANG"/>
+    </resultMap>
+
+    <select id="queryAlbumInfos" resultMap="BaseResultMap">
+        select *
+        from album as a
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="paramAlbum.ANAME != null and paramAlbum.ANAME != ''">
+                or a.ANAME like concat('%', #{paramAlbum.ANAME,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="paramAlbum.COMPANY != null and paramAlbum.COMPANY != ''">
+                or a.COMPANY like concat('%', #{paramAlbum.COMPANY,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="paramAlbum.LANG != null and paramAlbum.LANG != ''">
+                or a.LANG like concat('%', #{paramAlbum.LANG,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="paramAlbum.PDATE != null and paramAlbum.PDATE != ''">
+                or a.PDATE = #{paramAlbum.PDATE,jdbcType=TIMESTAMP}
+            </if>
+        </trim>
+        limit #{paramStartNo,jdbcType=INTEGER},#{paramPageSize,jdbcType=INTEGER}
+    </select>
+
+    <select id="queryAlbumCount" resultType="java.lang.Integer">
+        select count(1)
+        from album as a
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="paramAlbum.ANAME != null and paramAlbum.ANAME != ''">
+                or a.ANAME like concat('%', #{paramAlbum.ANAME,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="paramAlbum.COMPANY != null and paramAlbum.COMPANY != ''">
+                or a.COMPANY like concat('%', #{paramAlbum.COMPANY,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="paramAlbum.LANG != null and paramAlbum.LANG != ''">
+                or a.LANG like concat('%', #{paramAlbum.LANG,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="paramAlbum.PDATE != null">
+                or a.PDATE = #{paramAlbum.PDATE,jdbcType=TIMESTAMP}
+            </if>
+        </trim>
+    </select>
+    <insert id="addAlbumInfo">
+        insert into album values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            null,
+            <if test="paramAlbum.ANAME != null and paramAlbum.ANAME != ''">
+                #{paramAlbum.ANAME,jdbcType=VARCHAR},
+            </if>
+            <if test="paramAlbum.PIC != null and paramAlbum.PIC != ''">
+                #{paramAlbum.PIC,jdbcType=VARCHAR},
+            </if>
+            <if test="paramAlbum.COMPANY != null and paramAlbum.COMPANY != ''">
+                #{paramAlbum.COMPANY,jdbcType=VARCHAR},
+            </if>
+            <if test="paramAlbum.PDATE != null">
+                date_format(#{paramAlbum.PDATE,jdbcType=TIMESTAMP}, '%Y-%c-%d'),
+            </if>
+            <if test="paramAlbum.LANG != null and paramAlbum.LANG != ''">
+                #{paramAlbum.LANG,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateAlbumInfo">
+        update album as a
+        <set>
+            <if test="paramAlbum.ANAME != null and paramAlbum.ANAME != ''">
+                a.ANAME=#{paramAlbum.ANAME,jdbcType=VARCHAR},
+            </if>
+            <if test="paramAlbum.PIC != null and paramAlbum.PIC != ''">
+                a.PIC=#{paramAlbum.PIC,jdbcType=VARCHAR},
+            </if>
+            <if test="paramAlbum.COMPANY != null and paramAlbum.COMPANY != ''">
+                a.COMPANY=#{paramAlbum.COMPANY,jdbcType=VARCHAR},
+            </if>
+            <if test="paramAlbum.LANG != null and paramAlbum.LANG != ''">
+                a.LANG=#{paramAlbum.LANG,jdbcType=VARCHAR},
+            </if>
+            <if test="paramAlbum.PDATE != null">
+                a.PDATE=DATE_FORMAT(#{paramAlbum.PDATE,jdbcType=TIMESTAMP}, '%Y-%m-%d-%H-%i-%S')
+            </if>
+        </set>
+        where a.AID = #{paramAid,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteAlbumInfo">
+        <if test="paramAid != null and paramAid != ''">
+            delete
+            from album
+            where AID = #{paramAid,jdbcType=INTEGER}
+        </if>
+    </delete>
+
+    <select id="queryNameExists" resultType="Integer">
+        select count(1)
+        from album
+        <if test="paramName != null and paramName != ''">
+            where album.ANAME = #{paramName,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="queryAllAlbumInfos" resultMap="BaseResultMap">
+        select *
+        from album
+    </select>
+
+    <select id="queryAlbumInfoByAID" resultMap="BaseResultMap">
+        select *
+        from album as a
+        where a.AID = #{aID,jdbcType=INTEGER}
+    </select>
+</mapper>

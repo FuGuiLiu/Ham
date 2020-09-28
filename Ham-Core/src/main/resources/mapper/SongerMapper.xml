@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sky.ham.dao.SongerMapper">
+    <resultMap id="BaseResultMap" type="com.sky.ham.entity.Songer">
+        <id column="SRID" jdbcType="INTEGER" property="SRID"/>
+        <result column="TID" jdbcType="INTEGER" property="TID"/>
+        <result column="SRNAME" jdbcType="VARCHAR" property="SRNAME"/>
+        <result column="AREA" jdbcType="VARCHAR" property="AREA"/>
+        <result column="PIC" jdbcType="VARCHAR" property="PIC"/>
+        <result column="IS_HOT" jdbcType="INTEGER" property="IS_HOT"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.sky.ham.entity.Songer">
+        <result column="INTRO" jdbcType="LONGVARCHAR" property="INTRO"/>
+    </resultMap>
+    <resultMap id="MTypeResultMap" type="com.sky.ham.entity.Songer" extends="BaseResultMap">
+        <association property="TNAME" javaType="com.sky.ham.entity.MType" resultMap="MTypeResultMap"/>
+    </resultMap>
+    <delete id="deleteSingerInfo" parameterType="java.lang.Integer">
+        delete
+        from songer
+        where SRID = #{paramSRid,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="addSingerInfo" parameterType="com.sky.ham.entity.Songer">
+        insert into songer (SRID, TID, SRNAME,
+                            AREA, PIC, IS_HOT,
+                            INTRO)
+        values (#{paramSinger.SRID,jdbcType=INTEGER}, #{paramSinger.TID,jdbcType=INTEGER},
+                #{paramSinger.SRNAME,jdbcType=VARCHAR},
+                #{paramSinger.AREA,jdbcType=VARCHAR}, #{paramSinger.PIC,jdbcType=VARCHAR},
+                #{paramSinger.IS_HOT,jdbcType=INTEGER},
+                #{paramSinger.INTRO,jdbcType=LONGVARCHAR})
+    </insert>
+
+    <update id="updateSingerInfo" parameterType="com.sky.ham.entity.Songer">
+        update songer
+
+        <set>
+            <if test="paramSinger.TID != null">
+                TID = #{paramSinger.TID,jdbcType=INTEGER},
+            </if>
+            <if test="paramSinger.SRNAME != null">
+                SRNAME = #{paramSinger.SRNAME,jdbcType=VARCHAR},
+            </if>
+            <if test="paramSinger.AREA != null">
+                AREA = #{paramSinger.AREA,jdbcType=VARCHAR},
+            </if>
+            <if test="paramSinger.PIC != null">
+                PIC = #{paramSinger.PIC,jdbcType=VARCHAR},
+            </if>
+            <if test="paramSinger.IS_HOT != null">
+                IS_HOT = #{paramSinger.IS_HOT,jdbcType=INTEGER},
+            </if>
+            <if test="paramSinger.INTRO != null">
+                INTRO = #{paramSinger.INTRO,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+
+
+        where SRID = #{paramSinger.SRID,jdbcType=INTEGER}
+    </update>
+
+    <select id="querySingersInfos" resultMap="BaseResultMap">
+        select *, (select TNAME from mtype as m where m.TID in (s.TID)) as TNAME
+        from songer as s
+
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="paramSinger.SRNAME != null and paramSinger.SRNAME != ''">
+                or s.SRNAME like concat('%', #{paramSinger.SRNAME}, '%')
+            </if>
+            <if test="paramSinger.AREA != null and paramSinger.AREA != ''">
+                or s.AREA like concat('%', #{paramSinger.AREA,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="paramSinger.TID != null and paramSinger.TID != ''">
+                or s.TID = #{paramSinger.TID}
+            </if>
+        </trim>
+
+        limit #{paramStartNo,jdbcType=INTEGER},#{paramPageSize,jdbcType=INTEGER}
+    </select>
+    <select id="querySingerCount" resultType="java.lang.Integer">
+        select count(1)
+        from songer as s
+
+        <trim prefix="where" prefixOverrides="or|and">
+            <if test="paramSinger.SRNAME != null and paramSinger.SRNAME != ''">
+                or s.SRNAME like concat('%', #{paramSinger.SRNAME}, '%')
+            </if>
+            <if test="paramSinger.AREA != null and paramSinger.AREA != ''">
+                or s.AREA like concat('%', #{paramSinger.AREA,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="paramSinger.TID != null and paramSinger.TID != ''">
+                or s.TID = #{paramSinger.TID,jdbcType=INTEGER}
+            </if>
+        </trim>
+    </select>
+
+    <select id="selectSingerInfo" resultMap="BaseResultMap">
+        select *
+        from songer as s
+        where s.SRID = #{paramSRid,jdbcType=INTEGER}
+    </select>
+
+    <select id="queryAllSingers" resultMap="BaseResultMap">
+        select *
+        from songer
+    </select>
+
+    <select id="querySingerInfoBySID" resultMap="BaseResultMap">
+        select *
+        from songer as s
+        where s.SRID = #{paramSID,jdbcType=INTEGER}
+    </select>
+</mapper>

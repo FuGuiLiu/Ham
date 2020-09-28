@@ -1,0 +1,17 @@
+*.class
+*.properties
+<<<<<<< HEAD
+!*.log4.properties
+=======
+>>>>>>> d755f9b... console
+Ham-Console/out/
+Ham-Console/target/
+Ham-Core/target
+Ham-File/out
+Ham-File/target
+Ham-Portal/out
+<<<<<<< HEAD
+Ham-Portal/out
+=======
+Ham-Portal/target
+>>>>>>> d755f9b... console
