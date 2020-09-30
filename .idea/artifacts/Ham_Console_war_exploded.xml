@@ -1,22 +1,12 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" build-on-make="true" name="Ham-Console:war exploded">
-    <output-path>$PROJECT_DIR$/Ham-Console/target/Ham-Console-1.0-SNAPSHOT</output-path>
-    <properties id="maven-jee-properties">
-      <options>
-        <exploded>true</exploded>
-        <module>Ham-Console</module>
-        <packaging>war</packaging>
-      </options>
-    </properties>
+  <artifact type="exploded-war" name="Ham-Console:war exploded">
+    <output-path>$PROJECT_DIR$/Ham-Console/out/Ham-Console-1.0-SNAPSHOT</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="Ham-Console" />
         </element>
         <element id="directory" name="lib">
-          <element id="archive" name="Ham-Core-1.0-SNAPSHOT.jar">
-            <element id="module-output" name="Ham-Core" />
-          </element>
           <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.6.8" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:5.0.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:5.0.2.RELEASE" />
@@ -54,17 +44,14 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.0.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:5.0.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:5.0.2.RELEASE" />
-          <element id="file-copy" path="$MAVEN_REPOSITORY$/jstl/jstl/1.2/jstl-1.2.jar" output-file-name="jstl-jstl-1.2.jar" />
-          <element id="file-copy" path="$MAVEN_REPOSITORY$/javax/servlet/jstl/1.2/jstl-1.2.jar" output-file-name="javax.servlet-jstl-1.2.jar" />
+          <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
+          <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
           <element id="library" level="project" name="Maven: com.sun.jersey:jersey-client:1.2" />
           <element id="library" level="project" name="Maven: com.sun.jersey:jersey-core:1.2" />
           <element id="library" level="project" name="Maven: javax.ws.rs:jsr311-api:1.1.1" />
           <element id="library" level="project" name="Maven: commons-io:commons-io:2.0.1" />
           <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.47" />
         </element>
-      </element>
-      <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/Ham-Console/target/Ham-Console-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="Ham-Console/web/Web" />
     </root>

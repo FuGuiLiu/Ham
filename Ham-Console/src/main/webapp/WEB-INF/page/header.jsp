@@ -23,13 +23,13 @@
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/bootstrap-datetimepicker.js"></script>
     <script src="${pageContext.servletContext.contextPath}/js/layui/layui.js" charset="utf-8"></script>
-<<<<<<< HEAD
+
     <c:set var="localPicturesPath" value="http://localhost:9092/pictures/"></c:set>
     <c:set var="localSongsPath" value="http://localhost:9092/songs/"></c:set>
-=======
+
     <c:set var="localPicturesPath" value="http://localhost:8080/pictures/"></c:set>
     <c:set var="localSongsPath" value="http://localhost:8080/songs/"></c:set>
->>>>>>> d755f9b... console
+
 </head>
 <body>
 

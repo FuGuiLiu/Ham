@@ -1,22 +1,17 @@
-<<<<<<< HEAD
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-=======
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
->>>>>>> d755f9b... console
+
 <%@include file="header.jsp" %>
 <html>
 <head>
     <title>tx 音乐是生活的调味剂</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<<<<<<< HEAD
     <link rel="stylesheet" href="/console/style/screen.css" media="screen"/>
     <link rel="stylesheet" href="/console/style/lightbox.css" media="screen"/>
-=======
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/style/screen.css" media="screen"/>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/style/lightbox.css" media="screen"/>
->>>>>>> d755f9b... console
-
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script>
         $(function () {
@@ -247,11 +242,10 @@
                                                     <div class="image-set">
                                                         <a class="example-image-link" id="a_pic" target="_blank"
                                                                 <c:choose>
-<<<<<<< HEAD
                                                                     <c:when test="${songer.PIC!=null}">href="${localPicturesPath/songer.PIC}"</c:when>
-=======
+
                                                                     <c:when test="${songer.PIC!=null}">href="${localPicturesPath}/${songer.PIC}"</c:when>
->>>>>>> d755f9b... console
+
                                                                     <c:otherwise>
                                                                         href="${pageContext.servletContext.contextPath}/img/gallery-photo/image-3.jpg"
                                                                     </c:otherwise>
@@ -260,11 +254,11 @@
                                                            title="Click on the right side of the image to move forward.">
                                                             <img id="songerImg" class="example-image"
                                                                     <c:choose>
-<<<<<<< HEAD
+
                                                                         <c:when test="${songer.PIC!=null}">src="${localPicturesPath/songer.PIC}"</c:when>
-=======
+
                                                                         <c:when test="${songer.PIC!=null}">src="${localPicturesPath}/${songer.PIC}"</c:when>
->>>>>>> d755f9b... console
+
                                                                         <c:otherwise>
                                                                             src="${pageContext.servletContext.contextPath}/img/gallery-photo/image-3.jpg"
                                                                         </c:otherwise>
@@ -318,7 +312,7 @@
                             </form>
                         </div>
                     </div>
-<<<<<<< HEAD
+                    <<<<<<< HEAD
                     <div class="bottom-nav footer"> 拓薪教育出品</div>
                     <script>$("#songer").addClass("current");</script>
                     <script src="../../javascript/lightbox-2.6.min.js"></script>
@@ -336,20 +330,17 @@
                             s.parentNode.insertBefore(ga, s);
                         })();
                     </script>
-=======
+                    =======
                     <script>$("#songer").addClass("current");</script>
                     <script src="${pageContext.servletContext.contextPath}/javascript/lightbox-2.6.min.js"></script>
->>>>>>> d755f9b... console
+                    >>>>>>> d755f9b... console
                 </div>
             </div>
         </div>
     </div>
 </body>
 </html>
-<<<<<<< HEAD
 
 <%--<script src="/console/javascript/jquery-1.10.2.min.js"></script>--%>
 <script src="/console/js/singerAdd.js"></script>
-=======
 <script src="${pageContext.servletContext.contextPath}/js/singerAdd.js"></script>
->>>>>>> d755f9b... console
