@@ -6,6 +6,7 @@ import com.sky.ham.service.AlbumService;
 import com.sky.ham.service.SongService;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SongTest {
@@ -43,7 +44,16 @@ public class SongTest {
 
     @Test
     public void songsListTest() {
-        List<Song> songs = songService.querySongInfosByAID(7);
+//        List<Song> songs = songService.querySongInfosByAID(7);
+//        for (Song song : songs) {
+//            System.out.println(song.getSNAME());
+//        }
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(3);
+        list.add(5);
+        list.add(7);
+        List<Song> songs = songService.querySongsInfosByIDS(list);
         for (Song song : songs) {
             System.out.println(song.getSNAME());
         }

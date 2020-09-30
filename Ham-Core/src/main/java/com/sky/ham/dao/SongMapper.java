@@ -54,4 +54,6 @@ public interface SongMapper {
      * @return
      */
     List<Song> querySongInfosByAID(@Param("paramAID") Integer AID);
+
+    List<Song> querySongsInfosByIDS(@Param("pramIds") List<Integer> ids);
 }

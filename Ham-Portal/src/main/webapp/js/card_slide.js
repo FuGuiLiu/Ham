@@ -18,7 +18,7 @@ function Swiper(obj) {
         this.containerWidth = document.body.clientWidth; // 轮播图盒子宽度
     } else {
         // PC端
-        this.containerWidth = 1320; // 轮播图盒子宽度
+        this.containerWidth = 1350; // 轮播图盒子宽度
     }
     this.imgWidth = obj.imgWidth; // 图片宽度
     this.aniTime = obj.aniTime || 500;

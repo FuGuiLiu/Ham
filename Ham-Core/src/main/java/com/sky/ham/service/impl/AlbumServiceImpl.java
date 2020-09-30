@@ -65,4 +65,9 @@ public class AlbumServiceImpl implements AlbumService {
     public Album queryAlbumInfoByAID(Integer aId) {
         return albumMapper.queryAlbumInfoByAID(aId);
     }
+
+    @Override
+    public List<Album> queryAlbumByFuzzyName(String fuzzyName) {
+        return albumMapper.queryAlbumInfoByName(fuzzyName);
+    }
 }

@@ -12,7 +12,18 @@
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">
-      <configuration />
+      <configuration>
+        <fileset id="web application context" name="MVC application context" removed="true">
+          <file>file://$MODULE_DIR$/../Ham-Core/src/main/resources/applicationContent.xml</file>
+        </fileset>
+        <fileset id="web springMVC servlet context" name="MVC springMVC servlet context" removed="true">
+          <file>file://$MODULE_DIR$/src/main/resources/springmvc-servlet.xml</file>
+        </fileset>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/../Ham-Core/src/main/resources/applicationContent.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/springmvc-servlet.xml</file>
+        </fileset>
+      </configuration>
     </facet>
   </component>
 </module>

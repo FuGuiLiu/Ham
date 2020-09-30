@@ -27,8 +27,6 @@
            href="${pageContext.servletContext.contextPath}/song/list.go" role="tab" aria-controls="messages">歌曲</a>
         <a class="list-group-item list-group-item-action" id="list-singer-list"
            href="${pageContext.servletContext.contextPath}/singer/list.go" role="tab" aria-controls="settings">歌手</a>
-        <a class="list-group-item list-group-item-action" id="list-player-list"
-           href="${pageContext.servletContext.contextPath}/portals/player.go" role="tab" aria-controls="settings">播放器</a>
     </div>
 </div>
 

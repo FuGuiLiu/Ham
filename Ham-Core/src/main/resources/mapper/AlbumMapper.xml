@@ -118,4 +118,10 @@
         from album as a
         where a.AID = #{aID,jdbcType=INTEGER}
     </select>
+    <select id="queryAlbumInfoByName" resultType="com.sky.ham.entity.Album">
+        select * from album a
+        <if test="paramFuzzyName!=null and paramFuzzyName!=''">
+            where a.ANAME like concat('%',#{paramFuzzyName},'%')
+        </if>
+    </select>
 </mapper>

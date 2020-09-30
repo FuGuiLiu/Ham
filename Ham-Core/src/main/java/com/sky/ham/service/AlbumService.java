@@ -73,4 +73,12 @@ public interface AlbumService {
      * @return
      */
     Album queryAlbumInfoByAID(Integer aId);
+
+    /**
+     * 查询专辑信息
+     *
+     * @param fuzzyName
+     * @return
+     */
+    List<Album> queryAlbumByFuzzyName(String fuzzyName);
 }

@@ -3,13 +3,6 @@
 <c:set var="localSongsPath" value="http://localhost:9092/songs/"></c:set>
 <c:set var="localPicturesPath" value="http://localhost:8080/pictures/"></c:set>
 <c:set var="localSongsPath" value="http://localhost:8080/songs/"></c:set>
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2020/9/25
-  Time: 8:16
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <head>

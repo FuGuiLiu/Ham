@@ -67,4 +67,12 @@ public interface AlbumMapper {
     List<Album> queryAllAlbumInfos();
 
     Album queryAlbumInfoByAID(Integer aID);
+
+    /**
+     * 查询专辑信息根据专辑名称
+     *
+     * @param fuzzyName
+     * @return
+     */
+    List<Album> queryAlbumInfoByName(@Param(value = "paramFuzzyName") String fuzzyName);
 }

@@ -1,8 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<c:set var="localPicturesPath" value="http://localhost:8080/pictures/"></c:set>
-<c:set var="localSongsPath" value="http://localhost:8080/songs/"></c:set>
 <html>
 <head>
+    <jsp:include page="bootstrapHeader.jsp"/>
     <title>Title</title>
     <style>
         .swiper-list {
@@ -44,6 +43,34 @@
         .rightBtn {
             right: 0px;
         }
+
+        .dropdown-menu > a {
+            pointer-events: auto;
+        }
+
+        #div_searchDropDown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            float: left;
+            min-width: 10rem;
+            padding: 0.5rem 0;
+            margin: 0.125rem 0 0;
+            font-size: 1rem;
+            color: #212529;
+            text-align: left;
+            list-style: none;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 0.25rem;
+        }
+
+        #btn_input {
+            position: relative;
+        }
     </style>
 </head>
 <body>
@@ -53,17 +80,19 @@
         <div class="row">
             <jsp:include page="/WEB-INF/page/menu.jsp"/>
             <div class="col-lg-10">
-                <div class="col-lg-3">
-                    <div class="input-group mb-3" style="width: 300px;margin-top: 5px;">
-                        <input type="text" name="SRNAME" class="form-control" placeholder="搜索专辑">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="submit"><img
-                                    src="${pageContext.servletContext.contextPath}/Icon/serach.png"
-                                    style="width: 24px;height: 24px;"></button>
-                        </div>
+                <div class="input-group mb-3" style="width: 300px;margin-top: 5px;margin-left: 80%;">
+
+                    <input type="text" name="albumName" class="form-control dropdown" placeholder="搜索专辑" id="btn_input">
+                    <div class="input-group-append">
+
+                        <button class="btn btn-outline-secondary" id="btn_serch"><img
+                                src="${pageContext.servletContext.contextPath}/Icon/serach.png"
+                                style="width: 24px;height: 24px;"></button>
+                    </div>
+                    <div id="div_searchDropDown" style="width: 300px;border-top: none;">
+
                     </div>
                 </div>
-
                 <div class="col-lg-7">
                     <p style="font:normal bold  40px black 微软雅黑;">推荐专辑列表</p>
 
@@ -75,9 +104,11 @@
 
 
                         <a href="#"><img id="prev-card" class="btns leftBtn"
-                                         src="${pageContext.servletContext.contextPath}/Icon/left.png" style="width: 32px;height: 32px;" alt=""></a>
+                                         src="${pageContext.servletContext.contextPath}/Icon/left.png"
+                                         style="width: 32px;height: 32px;" alt=""></a>
                         <a href="#"><img id="next-card" class="btns rightBtn"
-                                         src="${pageContext.servletContext.contextPath}/Icon/right.png" style="width: 32px;height: 32px;" alt=""></a>
+                                         src="${pageContext.servletContext.contextPath}/Icon/right.png"
+                                         style="width: 32px;height: 32px;" alt=""></a>
                     </div>
                 </div>
 
@@ -127,6 +158,10 @@
     })
 
 </script>
+
 <script>
     $("#list-album-list").attr("class", "list-group-item list-group-item-action active");
+    $(".dropdown-menu>a").css({"pointer-events": "all"})
 </script>
+<script src="${pageContext.servletContext.contextPath}/js/search/search.js" type="text/javascript"></script>
+<script src="${pageContext.servletContext.contextPath}/js/jump.js" type="text/javascript"></script>

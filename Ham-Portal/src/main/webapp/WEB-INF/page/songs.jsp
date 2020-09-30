@@ -64,7 +64,7 @@
                                     <a href="#" style="">${songs.SNAME}</a>
                                 </td>
                                 <td>
-                                    <a href="">
+                                    <a href="#">
                                         <img src="${localPicturesPath}/${songs.PIC}"
                                              style="width: 50px;height: 50px;">
                                     </a>
@@ -72,7 +72,8 @@
                                 <td><a href="#" style="">${songs.SRNAME}</a></td>
                                 <td><a href="#" style="">${songs.ANAME}</a></td>
                                 <td>
-                                    <a id="a_play" href="#">
+                                    <a onclick="singlePlay(${songs.SID});"
+                                       href="#">
                                         <img src="${pageContext.servletContext.contextPath}/Icon/play.png"
                                              style="width: 24px;height: 24px;" alt="">
                                     </a>
@@ -152,5 +153,21 @@
 </script>
 <script>
     $("#list-songs-list").attr("class", "list-group-item list-group-item-action active");
-    $("a").css({"text-decoration":"none"});
+    $("a").css({"text-decoration": "none"});
+
+    function singlePlay(sid) {
+        if (sid != null && '' != sid) {
+            window.location.href = "${pageContext.servletContext.contextPath}/song/playSingleSong.go?ids=" + sid;
+        }
+    }
 </script>
+<%--<script>--%>
+<%--    function playsongs() {--%>
+<%--        var ids = "";--%>
+<%--        $("tbody input[type='checkbox']:checked").each(function () {--%>
+<%--            ids += $(this).val() + ",";--%>
+<%--        })--%>
+<%--        var win = window.open("/song/play?ids=" + ids, "aaa");--%>
+<%--    }--%>
+<%--</script>--%>
+

@@ -141,8 +141,14 @@
 
     <select id="querySongInfo" resultMap="BaseResultMap">
         select *
-        from song
-        where SID = #{paramSid,jdbcType=INTEGER}
+        from (
+                 select *,
+                        (select sg.SRNAME from songer as sg where sg.SRID in (s.SRID)) as SRNAME,
+                        (select a.ANAME from album as a where a.AID in (s.AID))        as ANAME,
+                        (select m.TNAME from mtype as m where m.TID in (s.TID))        as TNAME
+                 from song as s
+             ) as t
+        where t.SID = #{paramSid,jdbcType=INTEGER}
     </select>
 
     <select id="querySongInfosByAID" resultMap="BaseResultMap" resultType="Song">
@@ -157,5 +163,21 @@
         <if test="paramAID!=null">
             where t.AID=#{paramAID,jdbcType=INTEGER}
         </if>
+    </select>
+
+    <select id="querySongsInfosByIDS" resultType="com.sky.ham.entity.Song">
+        select *
+        from (
+        select *,
+        (select sg.SRNAME from songer as sg where sg.SRID in (s.SRID)) as SRNAME,
+        (select a.ANAME from album as a where a.AID in (s.AID)) as ANAME,
+        (select m.TNAME from mtype as m where m.TID in (s.TID)) as TNAME
+        from song as s
+        ) as t
+        where t.SID in
+        <foreach collection="pramIds" item="id"
+                 open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </select>
 </mapper>

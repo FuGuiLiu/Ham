@@ -68,4 +68,11 @@ public interface SongService {
      */
     List<Song> querySongInfosByAID(Integer AID);
 
+    /**
+     * 查询歌曲信息根据歌曲id
+     *
+     * @param ids
+     * @return
+     */
+    List<Song> querySongsInfosByIDS(List<Integer> ids);
 }
