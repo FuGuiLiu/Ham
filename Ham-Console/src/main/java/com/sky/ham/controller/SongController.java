@@ -169,7 +169,7 @@ public class SongController {
         if (bindingResult.hasErrors()) {
             return "/mistake";
         } else {
-            song.setPIC(singerService.querySingerInfoBySID(song.getSID()).getPIC());
+            song.setPIC(singerService.querySingerInfoBySID(song.getSRID()).getPIC());
             Integer integer = songService.updateSong(song);
             if (integer == 1) {
                 return "redirect:/song/list.go";
